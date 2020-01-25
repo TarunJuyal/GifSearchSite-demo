@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .size{
+        width: 200px;
+        height: 200px;
+    }
+    </style>
+    <script src="js/config.js"></script>
+    <script>
+    function createImage(url){
+        var img=document.createElement('img');
+        img.className='size';
+        img.src=url;
+        return img;
+    }
+    function printImages(data){
+        var div = document.getElementById('result');
+        div.innerHTML='';
+        for(let imageObject of data.data){
+            div.appendChild(createImage(imageObject.images.original.url));
+        }
+    }
+    function doAjax(){
+        var limit = document.querySelector('#limit').value;
+        var searchTxt = document.querySelector('#searchTxt').value;
+        var promise = fetch(urls.search(searchTxt,limit));
+        promise.then(response=>{
+            response.json().then(data=>printImages(data)).catch(err=>console.log('Invalid Json'),err).catch(err=>console.log('Server Error!!',err));
+        })
+    }
+    </script>
+</head>
+<body>
+    <input id="searchTxt" type="text" placeholder="Type any GIF to Search">
+    Limit <select id="limit">
+       <option value="0">Select Limit</option>
+       <option value="10">10</option>
+       <option value="20">20</option>
+       <option value="30">30</option>
+    </select>
+    <button onclick="doAjax()">Search</button>
+    <div id="result">
+
+    </div>
+</body>
+</html>
