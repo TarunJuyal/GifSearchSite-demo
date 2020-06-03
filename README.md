@@ -1,5 +1,5 @@
 # GifSearchSite-demo
-a webpage to search different gif.
+a webpage to search different gif. Learnt consuming an api.
 
 Live example: https://tarunjuyal.github.io/GifSearchSite-demo/
 
